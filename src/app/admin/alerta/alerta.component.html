@@ -1,0 +1,84 @@
+<div class="row justify-content-end">
+    <div class="col-lg-3 text-right">
+        <select class="form-control btn-sm" id="exampleFormControlSelect1" (change)="ShowSelected($event)">
+            <option value="2">Sin atención</option>
+            <option value="1">Con atención</option>
+        </select>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" >
+                    <table class="table full-color-table full-inverse-table hover-table" style="color: black;">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Descripcion</th>
+                                <th>Area</th>
+                                <th>Soporte</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 14px;">
+                            <tr *ngFor="let alerta of listAlerta | paginate: { itemsPerPage: 10, currentPage: pageActual }">
+                                <td>{{alerta.personal}}</td>
+                                <td>{{alerta.descripcion}}</td>
+                                <td>{{alerta.area.title}}</td>
+                                <td *ngIf="alerta.idUsuario !== null">{{alerta.user!.name}} {{alerta.user!.lastname}}</td>
+                                <td *ngIf="alerta.idUsuario === null">Sin atencion</td>
+                                <td>{{alerta.fecha}}</td>
+                                <td>{{alerta.hora}}</td>
+                                <td *ngIf="alerta.status === 1"><a class=""><i
+                                            class="fas fa-eye text-danger"></i></a></td>
+                                <td *ngIf="alerta.status === 0"><a class=""><i
+                                    class="fas fa-eye-slash text-danger"></i></a></td>
+                                <td>
+                                    <button type="button" class="btn btn-facebook" data-toggle="tooltip" data-original-title="Edit"
+                                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="generarId(alerta.id)"><i class="fa fa-ambulance"></i> </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center" *ngIf="listAlerta.length > 10">
+                        <pagination-controls (pageChange)="pageActual = $event" ></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Generar Soporte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #form="ngForm" (ngSubmit)="crearSoporte()">
+                    <div class="form-group">
+                        <label for="recipient-nombre" class="col-form-label">Evaluacion Tecnica:</label>
+                        <textarea class="form-control" id="evaluacion" name="evaluacion" [(ngModel)]="soporteForm.evaluacion" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-apellido" class="col-form-label">Accion:</label>
+                        <textarea class="form-control" id="accion" name="accion" [(ngModel)]="soporteForm.accion" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelar()">Close</button>
+                        <button type="submit" class="btn btn-primary" >Generar</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>

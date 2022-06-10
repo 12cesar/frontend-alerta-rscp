@@ -1,0 +1,79 @@
+<div class="row justify-content-end">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="userAdd()">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-11">
+                                <label for="recipient-nombre" class="col-form-label">DNI:</label>
+                                <input type="text" class="form-control" id="dni" [(ngModel)]="data.dni" name="dni">
+                            </div>
+                            <div class="col-1 btnDni">
+                                <button class="btn btn-linkedin waves-effect waves-light" type="button"
+                                    (click)="buscarSunat()"> <i class="fa fa-search"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="recipient-nombre" class="col-form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" disabled [(ngModel)]="data.nombre"
+                                    name="nombre">
+                            </div>
+                            <div class="col-6">
+                                <label for="recipient-apellido" class="col-form-label">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido"
+                                    [(ngModel)]="data.apellido" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="recipient-usuario" class="col-form-label">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario"
+                                    [(ngModel)]="data.usuario">
+                            </div>
+                            <div class="col-6">
+                                <label for="recipient-password" class="col-form-label">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    [(ngModel)]="data.password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="recipient-password" class="col-form-label">Celular:</label>
+                                <input type="text" class="form-control" id="celular" name="celular"
+                                    [(ngModel)]="data.celular">
+                            </div>
+                            <div class="col-4">
+                                <label for="rol">Rol</label>
+                                <select class="form-control" id="rol" name="rol" [(ngModel)]="data.rol">
+                                    <option value="">Seleccionar Rol</option>
+                                    <option *ngFor="let rol of listRol" value="{{rol.id}}">{{rol.role}}</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="semana">Dias Laborales</label>
+                                <mat-select multiple class="form-control" name="semana" [(ngModel)]="data.semanas">
+                                    <mat-option *ngFor="let topping of listSemanas" [value]="topping.codigo">
+                                        {{topping.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            (click)="cancelar()">Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">{{titulo}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

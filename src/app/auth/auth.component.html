@@ -1,0 +1,17 @@
+<nav class="navbar navbar-dark bg-danger" style="color: black!important;">
+    <a class="navbar-brand" href="#" style="font-weight: bold;">RSCP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/alerta']" routerLinkActive="router-link-active" >Soporte <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/atencion']" routerLinkActive="router-link-active" >Atencion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<router-outlet></router-outlet>

@@ -1,0 +1,49 @@
+<div class="row justify-content-end">
+    <div class="col-lg-12">
+        <h3 class="text-center mt-5" style="text-decoration: underline; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bold; font-size: 16px;">ATENCION SOPORTE</h3>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" >
+                    <table class="table color-table inverse-table"  style="color: black;">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Descripcion</th>
+                                <th>Area</th>
+                                <th>Soporte</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 15px;">
+                            <tr *ngFor="let alerta of listAlerta | paginate: { itemsPerPage: 10, currentPage: pageActual }" [ngStyle]="{'background-color': alerta.status ? 'rgba(117, 246, 148, 0.8)' : 'rgba(246, 117, 117, 0.8)'}">
+                                <td>{{alerta.personal}}</td>
+                                <td>{{alerta.descripcion}}</td>
+                                <td>{{alerta.area.title}}</td>
+                                <td *ngIf="alerta.idUsuario !== null">
+                                    Nombre:{{alerta.user!.name}} {{alerta.user!.lastname}} <br>
+                                    Celular: {{alerta.user?.celular}} <br>
+                                    DNI: {{alerta.user?.dni}}
+                                </td>
+                                <td *ngIf="alerta.idUsuario === null">Sin atencion</td>
+                                <td>{{alerta.fecha}}</td>
+                                <td>{{alerta.hora}}</td>
+                                <td *ngIf="alerta.status === 1"><a class=""><i
+                                            class="fas fa-eye text-danger"></i></a></td>
+                                <td *ngIf="alerta.status === 0"><a class=""><i
+                                    class="fas fa-eye-slash text-danger"></i></a></td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center" *ngIf="listAlerta.length > 10">
+                        <pagination-controls (pageChange)="pageActual = $event" ></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

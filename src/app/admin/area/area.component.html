@@ -1,0 +1,82 @@
+<div class="row justify-content-end">
+    <div class="col-lg-3 text-right">
+        <select class="form-control btn-sm" id="exampleFormControlSelect1" (change)="ShowSelected($event)">
+            <option value="1">Desbloqueado</option>
+            <option value="2">Bloqueado</option>
+        </select>
+    </div>
+    <div class="col-lg-3">
+        <button type="button" class="btn btn-success btn-block" data-toggle="tooltip" data-original-title="Edit"
+            data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Crear area</button>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Area</th>
+                                <th>Estado</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let area of listArea | paginate: { itemsPerPage: 10, currentPage: pageActual }">
+                                <td>{{area.title}}</td>
+                                <td *ngIf="area.active === 1"><a class=""><i
+                                            class="fas fa-lock-open text-primary"></i></a></td>
+                                <td *ngIf="area.active === 0"><a class=""><i
+                                    class="fas fa-lock text-primary"></i></a></td>
+                                <td>
+                                    <a data-toggle="tooltip" data-original-title="Edit" class="btnAction"
+                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+                                        (click)="editarArea(area.id)"> <i
+                                            class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <a data-toggle="tooltip" data-original-title="Close" class="btnAction"
+                                        *ngIf="area.active===1" (click)="borrarArea(area.id, 0)"> <i
+                                            class="fas fa-lock text-danger"></i>
+                                    </a>
+                                    <a data-toggle="tooltip" data-original-title="Close" class="btnAction"
+                                        *ngIf="area.active===0" (click)="borrarArea(area.id, 1)"> <i
+                                            class="fas fa-lock-open text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center" *ngIf="listArea.length > 10">
+                        <pagination-controls (pageChange)="pageActual = $event" ></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{titulo}} area</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="areaForm" (ngSubmit)="areaAddPut()">
+                    <div class="form-group">
+                        <label for="recipient-nombre" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="recipient-nombre" formControlName="titulo">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelar()">Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="areaForm.invalid">{{titulo}}</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>

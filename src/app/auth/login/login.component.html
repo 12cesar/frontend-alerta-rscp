@@ -1,0 +1,36 @@
+
+<div class="container w-75  mt-5 rounded shadow mb-5">
+  <div class="row align-items-stretch">
+    <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
+      <img src="../../../assets/images/principal4.jpeg" alt="" width="100%" height="100%" class="rounded">
+    </div>
+    <div class="col bg-white p-5 rounded-end">
+      <div class="text-center">
+        <img src="../assets/images/logo3.png" width="70" alt="">
+      </div>
+      <h2 class="fw-bold text-center py-5">Bienvenidos a la Plataforma Mesa de Ayuda</h2>
+      <!-- login -->
+      <form [formGroup]="alertaForm" (ngSubmit)="enviarAlerta()">
+        <div class="mb-4">
+          <label for="nombre" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" name="nombre" formControlName="personal">
+        </div>
+        <div class="mb-4">
+          <h5 class="m-t-30">Area</h5>
+          <select class="form-control" id="exampleFormControlSelect1" formControlName="area">
+            <option selected="selected" value="">Seleccionar Area</option>
+            <option *ngFor="let area of listArea" value="{{area.id}}">{{area.title}}</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="descripcion" class="form-label">Descripción de la problemática</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="descripcion"
+            formControlName="descripcion"></textarea>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-danger" [disabled]="envio===true || alertaForm.invalid" >Enviar Alerta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
