@@ -13,7 +13,7 @@ export interface User {
     id:        number;
     name:      string;
     lastname:  string;
-    alias:     string;
+    usuario:     string;
     password:  string;
     active:    number;
     createdAt: string;

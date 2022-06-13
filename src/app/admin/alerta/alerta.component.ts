@@ -26,6 +26,7 @@ export class AlertaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mostrarAlertas();
+    this.alertaSocket();
   }
   mostrarAlertas() {
     if (this.cargar) {
@@ -83,7 +84,13 @@ export class AlertaComponent implements OnInit {
           this.mostrarAlertas();
         },
         (error)=>{
-          console.log(error);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: `${error.error.msg}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       )
     } else if (this.soporteForm.alerta === 0) {
@@ -102,5 +109,12 @@ export class AlertaComponent implements OnInit {
       alerta: 0,
       evaluacion: ''
     }
+  }
+  alertaSocket(){
+    this.wsService.listen('agregar-alerta').subscribe(
+      (data)=>{
+        this.mostrarAlertas();
+      }
+    )
   }
 }

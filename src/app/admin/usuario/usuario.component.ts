@@ -66,6 +66,8 @@ export class UsuarioComponent implements OnInit {
     this.userService.getUsers(this.active).subscribe(
       (data: ResultUser) => {
         this.listUser = data.user;
+        console.log(this.listUser);
+        
         if (this.cargar) {
           closeAlert();
         }
@@ -122,7 +124,7 @@ export class UsuarioComponent implements OnInit {
         this.userForm.setValue({
           nombre: data.user[0].name,
           apellido: data.user[0].lastname,
-          usuario: data.user[0].alias,
+          usuario: data.user[0].usuario,
           password: '',
           rol: data.user[0].rol.id,
         });
