@@ -21,7 +21,9 @@ export class InterceptorService implements HttpInterceptor{
     return next.handle(req); */
     const tokenizeReq = req.clone({
       setHeaders: {
-        'x-token': `${this.authService.getToken()}`
+        'x-token': `${this.authService.getToken()}`,
+        'mode': 'cors',
+        'Access-Control-Allow-Origin':'http://192.168.100.95:5000'
       }
     });
     return next.handle(tokenizeReq);
